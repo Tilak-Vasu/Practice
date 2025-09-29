@@ -74,7 +74,7 @@ console.log("using the reduce method")
 const postlikedWithReduce =  posts.reduce((a,b)=>{
     let inserted = false ;
     for (let i = 0; i < a.length; i++) {
-        if (b.likes > acc[i].likes) {
+        if (b.likes > a[i].likes) {
 
             a.splice(i, 0, b);
             inserted = true;
