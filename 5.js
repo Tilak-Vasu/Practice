@@ -24,10 +24,10 @@ export default Counter ;
 
 
 
-import Counter from './counter';
+// import Counter from './counter';
 
-export default function App() {
-  return (<>
-  <Counter />
-  </>);
-}
+// export default function App() {
+//   return (<>
+//   <Counter />
+//   </>);
+// }

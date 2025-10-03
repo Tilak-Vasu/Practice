@@ -1,33 +1,47 @@
 import {useState} from 'react';
 
-function todolist(){
-    const [todo,settodo] = useState([]); // holds the array of todo list
-    const [inp , setinp] = useState("");
-    const [error, setError] = useState("")
+function Todo() {
+    const [inp,setinp] = useState ('');
+    const [tlist , setlist] = useState([]);
+
     const hIc = (e) => {
-        setInput(e.target.value);
-        console.log(e.target.value);
+        setinp(e.target.value);
     };
-
-    const addTodo = () => {
-    if(inp.trim() !== ' ') {
-        settodo([...todo,inp]);
-        setinp("");
-    }   else {
-              setError("Please enter a valid task."); // if i/p is empty
-    }
+    const add = () => {
+        if(inp.trim() !== ''){
+            setlist([...tlist,inp]);
+            setinp('');
+        }
     };
-    
-return (
-<h1>Todo List</h1>
-    <input type='text' value= {inp} onChange={hIc}>
-    <button onClick={addTodo}>Add</button>
-
-    <ul>
-    {todo.map((todo,index) =>(
-        <li key={index}> {todo} </li>
-    )
-        )}
-);
+    return(
+        <div>
+        <h1> Todo List</h1>
+            <input 
+                type="text"
+                value = {inp}
+                onChange={hIc}
+                />
+            <br />
+            <br />
+            <button onClick={add}>Add task</button>
+            <ul>
+                {tlist.map((todo,index)=>(
+                        <li key={index}> {todo}</li>
+                ))}
+            </ul>
+        </div>
+    );
 }
-export default todolist;
+export default Todo;
+
+
+
+// import Todo from './todolist'; 
+// function App() {
+//   return (
+//     <>
+//     <Todo />
+//     </>  
+//   );
+// }
+// export default App;
