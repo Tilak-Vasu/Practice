@@ -12,6 +12,7 @@ async function getWeather(){
 	const {name,main,weather} = data;
 	const t = main.temp;
 	const weatherDescription = weather[0].description
+	console.log(`Weather :- Name: ${name} ,Temperature ${t} ,Description: ${weatherDescription}`)
     }
     catch(error){
 		console.log(`failed to fetch the data: ${error.message}`);
