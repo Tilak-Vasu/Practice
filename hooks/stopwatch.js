@@ -30,6 +30,12 @@ function App(){
     Time Runner : {timer}
     <button onClick={start} disabled={run}>Start</button>
     <button onClick={stop} disabled={!run}>Stop</button>
+    
+{/* run = false => enabled -----  initially
+!run = !(false) = true => disabled
+
+run = true => disabled ---after clicking start there is no meaning of keeping it enabled
+!run = !(true) = false => enabled  */}
   </>);
 }
 export default App;
