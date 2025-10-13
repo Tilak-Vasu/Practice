@@ -1,47 +1,30 @@
-import React, {useState,useReducer} from 'react';
-
-const reducer = (state,action) => {
-    switch(action.type){
-        case 'ADD_TASK':
-                return[...state, {text: action.text , completed : false}];
-        case 'DELETE_TASK':
-            return state.filter((_,i)=> i!==action.index);
-        case 'TOGGLE_TASK':
-            return state.map((todo,i)=>
-                i=== action.index ? {...todo,completed: !todo.completed}: todo);
-        case 'EDIT_TASK':
-            return state.map((todo,i)=>
-            i === action.index ? {...todo, text:action.text } : todo
-   );
-        default:
-            return state;
-    }
-};
-
-
+import React,{useState,useEffect} from 'react';
 function App(){
 const [inp,setInp] = useState('');
-const [edit,setEdit] = useState('');
-const [todos,dispatch] = useReducer (reducer,[]);
+const [todos,setList] = useState([]);
+const [edit,setEdit] = useState(null);
 
     const add = () => {
-        if(inp.trim()!==''){
-            dispatch({ type:'ADD_TASK', text:inp});
-            setInp('');
-        }
+          if(inp.trim()!==''){
+              setList([...todos,{text: inp , completed:false}]);
+              setInp('');
+          }
     };
-    const del = (index) => {
-        dispatch({ type:'DELETE_TASK', index});
-    };
-    const toggle = (index) => {
-        dispatch({ type:'TOGGLE_TASK', index});
+    const del = (index) =>{
+        const newList = todos.filter((_,i)=>i!==index);
+        setList(newList);
     };
     
-    const handleEditChange = (e,index) => {
-        dispatch({ type:'EDIT_TASK', index, text: e.target.value });
+    const toggle = (index) =>{
+      const newList = todos.map((todo,i) =>{
+          if(i===index){
+          return {...todo,completed: !todo.completed};
+          }
+        return todo;
+    })
+        setList(newList);
     };
-    
-    return(
+return(
     <>
         <div>
         <h1>Todo List Complex (with edit)</h1>
@@ -56,14 +39,19 @@ const [todos,dispatch] = useReducer (reducer,[]);
             <ul style={{marginTop:"20px"}}>
             {todos.map((todo,i) => (
                 <li style={{marginTop:"10px", textDecoration: todo.completed? 'line-through': 'none',cursor:'pointer'}}
-                    key={todo.text}>
+                    key={i}>
 
                     {edit === i ? (
                         <>
                         <input 
                             type='text'
                             value={todo.text}
-                            onChange={(e)=>handleEditChange(e,i)}
+                            onChange={(e)=>{
+                                const newTodo = [...todos];
+                                newTodo[i].text = e.target.value;
+                                console.log(e.target.value)
+                                setList(newTodo);
+                            }}
                             />
                         <button style={{marginLeft:"10px"}} onClick={()=> setEdit('')}> Done</button>
                         </>

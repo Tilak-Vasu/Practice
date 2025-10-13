@@ -32,7 +32,7 @@ function App(){
     <button onClick={stop} disabled={!run}>Stop</button>
     
 {/* run = false => enabled -----  initially
-!run = !(false) = true => disabled
+!run = !(false) = true => disabled   initially we havent started run so to keep it disabled we wll keep !(run) so that false bcomes true and disabled = true and disabling
 
 run = true => disabled ---after clicking start there is no meaning of keeping it enabled
 !run = !(true) = false => enabled  */}
