@@ -1,4 +1,4 @@
-import React, {useState,useReducer} from 'react';
+import React, {useState,useReducer,useRef,useEffect} from 'react';
 
 const reducer = (state,action) => {
     switch(action.type){
@@ -21,7 +21,8 @@ const reducer = (state,action) => {
 
 function App(){
 const [inp,setInp] = useState('');
-const [edit,setEdit] = useState('');
+// const iRef = useRef(null);
+const [edit,setEdit] = useState(null);
 const [todos,dispatch] = useReducer (reducer,[]);
 
     const add = () => {
@@ -40,6 +41,12 @@ const [todos,dispatch] = useReducer (reducer,[]);
     const handleEditChange = (e,index) => {
         dispatch({ type:'EDIT_TASK', index, text: e.target.value });
     };
+
+    // useEffect(()=>{
+    //     if(edit!== null){
+    //         iRef.current.focus();
+    //     }
+    // },[edit]);
     
     return(
     <>
@@ -56,16 +63,17 @@ const [todos,dispatch] = useReducer (reducer,[]);
             <ul style={{marginTop:"20px"}}>
             {todos.map((todo,i) => (
                 <li style={{marginTop:"10px", textDecoration: todo.completed? 'line-through': 'none',cursor:'pointer'}}
-                    key={todo.text}>
+                    key={i}>
 
                     {edit === i ? (
                         <>
                         <input 
+                          
                             type='text'
                             value={todo.text}
                             onChange={(e)=>handleEditChange(e,i)}
                             />
-                        <button style={{marginLeft:"10px"}} onClick={()=> setEdit('')}> Done</button>
+                        <button style={{marginLeft:"10px"}} onClick={()=> setEdit(null)}> Done</button>
                         </>
                         ) :(
                         <span onClick={()=> toggle(i)}>{todo.text}</span>
