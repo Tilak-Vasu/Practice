@@ -21,7 +21,7 @@ const reducer = (state,action) => {
 
 function App(){
 const [inp,setInp] = useState('');
-// const iRef = useRef(null);
+const iRef = useRef(null);
 const [edit,setEdit] = useState(null);
 const [todos,dispatch] = useReducer (reducer,[]);
 
@@ -42,11 +42,11 @@ const [todos,dispatch] = useReducer (reducer,[]);
         dispatch({ type:'EDIT_TASK', index, text: e.target.value });
     };
 
-    // useEffect(()=>{
-    //     if(edit!== null){
-    //         iRef.current.focus();
-    //     }
-    // },[edit]);
+    useEffect(()=>{
+        if(edit!== null){
+            iRef.current.focus();
+        }
+    },[edit]);
     
     return(
     <>
@@ -68,7 +68,7 @@ const [todos,dispatch] = useReducer (reducer,[]);
                     {edit === i ? (
                         <>
                         <input 
-                          
+                          ref={iRef}
                             type='text'
                             value={todo.text}
                             onChange={(e)=>handleEditChange(e,i)}
