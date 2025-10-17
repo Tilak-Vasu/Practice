@@ -14,7 +14,7 @@ function App(){
     }));
   };
   const hSubmit = (e) => {
-    e.prevenDefault();
+    e.preventDefault();
     alert(JSON.stringify(formData,null,2));
   };
   return(
